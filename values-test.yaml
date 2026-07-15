@@ -1,0 +1,27 @@
+component:
+  name: user
+  replicas: 2
+
+minReplicas: 2
+maxReplicas: 10
+
+cpu:
+  averageUtilization: 70
+
+appImage: public.ecr.aws/w2x3d9u7/roboshop-60/user
+appVersion: v03
+appPort: 8080
+probes:
+  liveness:
+    path: /health
+    port: 8080
+  readiness:
+    path: /health
+    port: 8080
+initialDelaySeconds: 20
+periodSeconds: 5  
+timeoutSeconds: 3
+failureThreshold: 3
+
+service:
+  type: ClusterIP
